@@ -32,13 +32,14 @@ public class HomeController {
     @Autowired
     private JobRepository jobRepository;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(Model model) {
 
         model.addAttribute("title", "MyJobs");
-
+        model.addAttribute("jobs", jobRepository.findAll());
         return "index";
     }
+
 
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
@@ -75,8 +76,16 @@ public class HomeController {
 
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
+        Optional optJob = jobRepository.findById(jobId);
 
-        return "view";
+        if(optJob.isPresent()){
+            Job job = (Job) optJob.get();
+            model.addAttribute("job", job);
+            return "view";
+        }else{
+            return"redirect:../";
+        }
+
     }
 
 }
