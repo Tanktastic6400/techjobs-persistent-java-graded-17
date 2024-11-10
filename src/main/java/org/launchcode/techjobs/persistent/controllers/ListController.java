@@ -15,7 +15,7 @@ import org.launchcode.techjobs.persistent.models.JobData;
 import java.util.HashMap;
 
 /**
- * Created by LaunchCode
+ * sCreated by LaunchCode
  */
 @Controller
 @RequestMapping(value = "list")
